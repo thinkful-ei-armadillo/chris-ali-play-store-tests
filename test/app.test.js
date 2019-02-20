@@ -30,10 +30,42 @@ describe('PlayStore', () => {
       .query({sort: 'Rating'})
       .expect(200)
       .then(res => {
-        expect(res.body[0]).includes({App: 'Hello Kitty Nail Salon'});
+        expect(res.body[0]).includes({App: 'Hello Kitty Nail Salon'}); //worked for chris
         expect(res.body[1]).includes({App: 'Helix Jump'});
         expect(res.body[19]).includes({App: 'Solitaire'}); 
       }); 
   });
+
+  it('Should throw an error for wrong genre', () => {
+    return request(app)
+      .get('/apps')
+      .query({genre: 'notRealGenre'}) //worked for ali
+      .expect(400)
+  });
+
+  it('should sort specific genre alphabetically', () =>{
+    return request(app)
+      .get('/apps')
+      .query({genre: 'Action'})
+      .expect(200)
+      .then(res => {
+        expect(res.body[0]).includes({App: 'ROBLOX'});
+        expect(res.body[1]).includes({App: 'slither.io'});
+        expect(res.body[5]).includes({App: 'Kick the Buddy'}); 
+      });
+  });
+
+  it('should sort specific genre alphabetically', () =>{
+    return request(app)
+      .get('/apps')
+      .expect(200)
+      .then(res => {
+        expect(res.body[0]).to.be.an('object');
+        expect(res.body[0]).to.have.all.keys('App', 'Type', 'Category', 'Android Ver', 'Content Rating');
+        expect(res.body[0].App).to.equal('ROBLOX');  
+        expect(res.body[0].Category).to.equal('GAME');
+      });
+  });
+
 
 });
