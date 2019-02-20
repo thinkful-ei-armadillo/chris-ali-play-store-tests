@@ -2,21 +2,25 @@
   "name": "google-play-store",
   "version": "1.0.0",
   "description": "",
-  "main": "apps.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node apps.js",
-    "dev": "nodemon apps",
-    "debug": "ndb node apps"
+    "test": "mocha",
+    "start": "node server",
+    "dev": "nodemon server",
+    "debug": "ndb node app"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.4",
+    "morgan": "^1.9.1",
     "ndb": "^1.0.43"
   },
   "devDependencies": {
-    "nodemon": "^1.18.10"
+    "chai": "^4.2.0",
+    "mocha": "^6.0.0",
+    "nodemon": "^1.18.10",
+    "supertest": "^3.4.2"
   }
 }

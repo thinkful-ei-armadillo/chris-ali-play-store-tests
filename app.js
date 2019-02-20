@@ -3,14 +3,14 @@
 const express = require('express');
 const morgan = require('morgan');
 
-const apps = express();
+const app = express();
 
-apps.use(morgan('dev'));
+app.use(morgan('common'));
 
 const playstore = require('./playstore.js');
 // console.log(playstore);
 
-apps.get('/apps', (req, res) => {
+app.get('/apps', (req, res) => {
   const { search = '', sort = '', genre } = req.query;
 
   if(sort) {
@@ -47,7 +47,5 @@ apps.get('/apps', (req, res) => {
   res.json(results);
 });
 
-apps.listen(8000, () => {
-  console.log('server started on port 8000');
-});
+module.exports = app; 
 
